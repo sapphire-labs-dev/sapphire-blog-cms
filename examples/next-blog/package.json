@@ -1,0 +1,22 @@
+{
+  "name": "next-blog-example",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "copy-panel": "node -e \"require('node:fs').copyFileSync('../../packages/app/dist/sapphire-cms.js', 'public/admin/sapphire-cms.js')\"",
+    "dev": "pnpm copy-panel && next dev -p 4398",
+    "build": "pnpm copy-panel && next build",
+    "start": "next start -p 4398"
+  },
+  "dependencies": {
+    "@sapphirelabs/blog-cms-next": "workspace:*",
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "typescript": "^7.0.2"
+  }
+}

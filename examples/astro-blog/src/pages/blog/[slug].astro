@@ -1,0 +1,60 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const date = post.data.pubDate.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<Layout title={`${post.data.title} · Example blog`} description={post.data.description}>
+  <article class="wrap post">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Posts</a> <span aria-hidden="true">/</span> <span>{post.data.title}</span></nav>
+    <header>
+      <h1>{post.data.title}</h1>
+      {post.data.description && <p class="lead">{post.data.description}</p>}
+      <time datetime={post.data.pubDate.toISOString()}>{date}</time>
+    </header>
+    {post.data.cover && <img class="cover" src={post.data.cover} alt={post.data.coverAlt ?? ''} />}
+    <div class="body">
+      <Content />
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .post { max-width: 760px; padding-top: 24px; }
+  .crumbs { display: flex; gap: 8px; color: var(--muted); font-size: 0.9rem; min-width: 0; }
+  .crumbs a { color: var(--muted); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
+  .crumbs span:last-child { color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  header { margin: 28px 0 32px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+  h1 { margin: 0; font-size: clamp(2rem, 4.5vw, 2.8rem); line-height: 1.1; letter-spacing: -0.03em; }
+  .lead { margin: 14px 0 12px; color: var(--muted); font-size: 1.15rem; }
+  time { color: var(--muted); font-family: var(--mono); font-size: 0.82rem; }
+  .cover { display: block; margin: 0 0 32px; border-radius: 14px; border: 1px solid var(--border); }
+
+  /* Post text. */
+  .body { font-size: 1.075rem; line-height: 1.75; }
+  .body :global(h2) { margin: 2em 0 0.6em; font-size: 1.5rem; letter-spacing: -0.02em; line-height: 1.25; }
+  .body :global(h3) { margin: 1.6em 0 0.5em; font-size: 1.2rem; }
+  .body :global(p) { margin: 0 0 1.15em; }
+  .body :global(a) { text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+  .body :global(blockquote) { margin: 1.5em 0; padding: 4px 0 4px 20px; border-left: 3px solid var(--accent); color: var(--muted); }
+  .body :global(ul), .body :global(ol) { margin: 0 0 1.15em; padding-left: 1.4em; }
+  .body :global(li) { margin: 0.3em 0; }
+  .body :global(code) { padding: 2px 6px; border-radius: 6px; background: var(--chip); font-family: var(--mono); font-size: 0.88em; }
+  .body :global(pre) { padding: 16px; overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); background: #0a0c10; }
+  .body :global(pre code) { padding: 0; background: none; }
+  .body :global(img) { border-radius: 10px; }
+  .body :global(hr) { margin: 2.5em 0; border: 0; border-top: 1px solid var(--border); }
+  .body :global(table) { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 0.95rem; }
+  .body :global(th), .body :global(td) { padding: 8px 12px; border: 1px solid var(--border); text-align: left; }
+  .body :global(th) { background: var(--surface); }
+  .body :global(mark) { padding: 0 3px; border-radius: 3px; color: #141824; }
+</style>

@@ -1,0 +1,27 @@
+{
+  "name": "@sapphirelabs/blog-cms-auth-worker",
+  "version": "1.0.0",
+  "description": "Sign-in worker for Sapphire Blog CMS on Cloudflare Workers: GitHub OAuth (also works with Decap and Sveltia) and Google sign-in through a GitHub App.",
+  "license": "MIT",
+  "author": "Sapphire Labs (https://github.com/sapphire-labs-dev)",
+  "homepage": "https://github.com/sapphire-labs-dev/sapphire-blog-cms#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sapphire-labs-dev/sapphire-blog-cms.git",
+    "directory": "packages/auth-worker"
+  },
+  "bugs": "https://github.com/sapphire-labs-dev/sapphire-blog-cms/issues",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0",
+    "wrangler": "^4.160.0"
+  }
+}

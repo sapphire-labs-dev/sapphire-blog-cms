@@ -1,0 +1,9 @@
+# Store text files with LF line endings everywhere (Windows, macOS, CI).
+* text=auto eol=lf
+
+# Binary files: never touch line endings.
+*.png binary
+*.ico binary
+*.jpg binary
+*.pdf binary
+*.webp binary

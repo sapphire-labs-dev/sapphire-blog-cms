@@ -1,0 +1,37 @@
+body {
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 0 16px;
+  color: #2f3e46;
+  font: 18px/1.7 Georgia, serif;
+}
+
+a {
+  color: #b5651d;
+}
+
+/* The post theme with the site colors and font. */
+.sapphire-prose {
+  --sp-accent: #b5651d;
+  --sp-font: Georgia, serif;
+}
+
+.post-list {
+  padding: 0;
+  list-style: none;
+}
+
+.post-list li {
+  margin: 0 0 24px;
+}
+
+.post-list time {
+  color: #6b7280;
+  font-size: 0.85em;
+}
+
+.cover {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}

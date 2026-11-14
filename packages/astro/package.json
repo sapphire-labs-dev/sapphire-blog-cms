@@ -1,0 +1,44 @@
+{
+  "name": "@sapphirelabs/blog-cms-astro",
+  "version": "1.0.0",
+  "description": "Sapphire Blog CMS for Astro: CMS panel at /admin with fields read from your content collections.",
+  "license": "MIT",
+  "author": "Sapphire Labs (https://github.com/sapphire-labs-dev)",
+  "homepage": "https://github.com/sapphire-labs-dev/sapphire-blog-cms#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sapphire-labs-dev/sapphire-blog-cms.git",
+    "directory": "packages/astro"
+  },
+  "bugs": "https://github.com/sapphire-labs-dev/sapphire-blog-cms/issues",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "pages"
+  ],
+  "keywords": [
+    "astro-integration",
+    "cms",
+    "withastro"
+  ],
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "peerDependencies": {
+    "astro": ">=5"
+  },
+  "dependencies": {
+    "@sapphirelabs/blog-cms": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "astro": "^7.3.8",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  }
+}

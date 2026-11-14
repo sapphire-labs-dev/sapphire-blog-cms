@@ -1,0 +1,12 @@
+{
+  "name": "sapphire-cms-monorepo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --filter @sapphirelabs/blog-cms dev",
+    "build": "pnpm --filter @sapphirelabs/blog-cms build && pnpm --filter @sapphirelabs/blog-cms-astro build && pnpm --filter @sapphirelabs/blog-cms-next build",
+    "test": "pnpm -r --if-present test",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "example": "pnpm build && pnpm --filter astro-blog-example dev"
+  }
+}

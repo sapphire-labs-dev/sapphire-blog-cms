@@ -1,0 +1,28 @@
+---
+// CMS panel page, injected by the integration at the configured route (default /admin).
+import options from 'virtual:sapphire-cms/options';
+import { buildCmsConfig } from '../dist/schema.js';
+
+const config = buildCmsConfig(options);
+const title = typeof config.site_title === 'string' ? config.site_title : 'Content Manager';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title}</title>
+    <style is:global>
+      body {
+        margin: 0;
+      }
+    </style>
+    <script is:inline define:vars={{ config }}>
+      window.SAPPHIRE_CMS_CONFIG = config;
+    </script>
+    <script is:inline src={options.scriptUrl}></script>
+  </head>
+  <body></body>
+</html>

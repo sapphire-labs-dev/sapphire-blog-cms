@@ -1,0 +1,109 @@
+---
+// Example blog layout: a calm dark theme in the style of sapphire-labs.dev.
+// Replace the colours below with your site's to make the blog your own.
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'An example blog edited with Sapphire Blog CMS.' } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+  </head>
+  <body>
+    <div class="glow" aria-hidden="true"></div>
+    <header class="wrap nav">
+      <a class="brand" href="/">
+        <img src="/brand/icon-96.png" alt="" width="30" height="30" />
+        <span class="wordmark">Example <b>Blog</b></span>
+      </a>
+      <nav>
+        <a href="/" aria-current={path === '/' || path.startsWith('/blog') ? 'page' : undefined}>Posts</a>
+        <a href="/admin">Admin</a>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="wrap">
+      <span>© {new Date().getFullYear()} Example blog</span>
+      <span>Edited with <a href="https://github.com/sapphire-labs-dev/sapphire-blog-cms">Sapphire Blog CMS</a></span>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #0b0d12;
+    --surface: #12151c;
+    --chip: #1a1e27;
+    --border: #232733;
+    --border-strong: #343a4a;
+    --text: #eceef3;
+    --muted: #979dad;
+    --accent: #5b8cff;
+    --accent-strong: #2f63f0;
+    --font: 'Inter', 'Segoe UI Variable Text', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --mono: ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: var(--accent); }
+  img { max-width: 100%; height: auto; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+  .wrap { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 640px) { .wrap { padding: 0 24px; } }
+  .eyebrow { margin: 0 0 16px; color: var(--muted); font-family: var(--mono); font-size: 0.82rem; letter-spacing: 0.04em; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 8px;
+    border: 1px solid var(--accent-strong); background: var(--accent-strong); color: #fff;
+    font-weight: 600; font-size: 0.95rem; text-decoration: none;
+  }
+  .btn:hover { background: #3b70ff; border-color: #3b70ff; }
+  .btn.ghost { background: transparent; border-color: var(--border-strong); color: var(--text); }
+  .btn.ghost:hover { background: var(--chip); }
+</style>
+
+<style>
+  .glow {
+    position: absolute; inset: 0 0 auto 0; height: 720px; z-index: -1; pointer-events: none;
+    background: radial-gradient(560px 400px at 26% 34%, rgba(47, 99, 240, 0.14), transparent 70%);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 22px; padding-bottom: 22px; }
+  .brand { display: flex; align-items: center; gap: 12px; color: var(--text); text-decoration: none; }
+  .wordmark { display: inline-flex; align-items: baseline; gap: 10px; font-weight: 700; font-size: 1.12rem; letter-spacing: -0.01em; }
+  .wordmark b { font-weight: 500; font-size: 0.72rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--accent); }
+  nav { display: flex; gap: 22px; }
+  nav a { position: relative; color: var(--muted); text-decoration: none; font-size: 0.95rem; padding: 4px 0; }
+  nav a:hover, nav a[aria-current='page'] { color: var(--text); }
+  nav a[aria-current='page']::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -3px; height: 2px; border-radius: 2px; background: var(--accent);
+  }
+  footer {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    margin-top: 96px; padding-top: 28px; padding-bottom: 40px; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 0.9rem;
+  }
+  footer a { color: var(--muted); }
+  footer a:hover { color: var(--text); }
+</style>

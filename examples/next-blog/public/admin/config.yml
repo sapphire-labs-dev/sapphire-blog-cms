@@ -1,0 +1,30 @@
+site_title: Example blog (Next)
+
+backend:
+  name: github
+  repo: owner/repository                     # replace with the site repository
+  branch: main
+  base_url: https://sapphire-cms-auth.YOUR-ACCOUNT.workers.dev
+  login_methods: [google, github]
+
+# On your computer, allows "Open project folder" with no sign-in (Chrome/Edge).
+local_backend: true
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: blog
+    label: Blog
+    label_singular: post
+    folder: content/blog
+    create: true
+    slug: '{{slug}}'
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: description, label: Summary, widget: text, maxlength: 160 }
+      - { name: pubDate, label: Publish date, widget: datetime, time_format: false, date_format: YYYY-MM-DD }
+      - { name: cover, label: Cover image, widget: image, required: false }
+      - { name: coverAlt, label: Image description, widget: string, required: false }
+      - { name: draft, label: Draft, widget: boolean, default: false }
+      - { name: body, label: Body, widget: markdown }

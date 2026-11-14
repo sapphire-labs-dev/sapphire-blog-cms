@@ -1,0 +1,29 @@
+{
+  // Template. Copy it to wrangler.local.jsonc (ignored by git), adjust it and deploy with
+  //   npx wrangler deploy -c wrangler.local.jsonc
+  //
+  // After deploying, add the secrets (add -c wrangler.local.jsonc to every command):
+  //   npx wrangler secret put GITHUB_CLIENT_ID        (GitHub sign-in)
+  //   npx wrangler secret put GITHUB_CLIENT_SECRET
+  //   npx wrangler secret put GOOGLE_CLIENT_ID        (Google sign-in)
+  //   npx wrangler secret put GOOGLE_CLIENT_SECRET
+  //   npx wrangler secret put SESSION_SECRET          (random text, at least 32 characters)
+  //   npx wrangler secret put GITHUB_APP_ID           (GitHub App that makes the commits)
+  //   npx wrangler secret put GITHUB_APP_PRIVATE_KEY  (contents of the .pem downloaded from GitHub)
+  "name": "sapphire-cms-auth",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  "vars": {
+    // Domains allowed to use this authenticator, comma-separated. Accepts *.domain.com (a bare * is ignored).
+    // Remove localhost in production.
+    "ALLOWED_DOMAINS": "localhost"
+  }
+  // Google sign-in: who can edit each repository. Create the namespace with
+  //   npx wrangler kv namespace create SITES
+  // uncomment the line below with the generated id, then register each site:
+  //   npx wrangler kv key put "owner/repo" --binding SITES --remote --path editors.json -c wrangler.local.jsonc
+  // where editors.json contains
+  //   {"editors": ["ana@example.com"], "paths": ["src/content/", "public/uploads/"], "branch": "main"}
+  // See docs/google-sign-in.md and SECURITY.md.
+  // ,"kv_namespaces": [{ "binding": "SITES", "id": "PASTE_THE_ID_HERE" }]
+}

@@ -1,0 +1,88 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layout.astro';
+
+const posts = (await getCollection('blog', ({ data }) => import.meta.env.DEV || !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
+const date = (d: Date) => d.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+---
+
+<Layout title="Example blog">
+  <section class="wrap hero">
+    <div class="hero-text">
+      <p class="eyebrow">// example blog</p>
+      <h1>Notes from the <em>workshop</em>.</h1>
+      <p class="lead">
+        A sample blog whose posts are Markdown files in this repository. Edit them in the panel and every save becomes a commit.
+      </p>
+      <div class="cta">
+        <a class="btn" href="/admin">Open the CMS</a>
+        <a class="btn ghost" href="#posts">Read the posts</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img
+        src="/brand/workshop-1400.webp"
+        srcset="/brand/workshop-800.webp 800w, /brand/workshop-1400.webp 1400w"
+        sizes="(min-width: 900px) 520px, 100vw"
+        alt="A puppy jeweler cutting a glowing sapphire at a workbench"
+        width="1400"
+        height="788"
+      />
+    </div>
+  </section>
+
+  <section class="wrap" id="posts">
+    <h2>Posts</h2>
+    <ul class="posts">
+      {posts.map((post) => (
+        <li>
+          <a class="post" href={`/blog/${post.id}`}>
+            <span class="post-head">
+              <span class="post-title">{post.data.title}</span>
+              {post.data.draft && <span class="badge">Draft</span>}
+            </span>
+            {post.data.description && <span class="post-desc">{post.data.description}</span>}
+            <time datetime={post.data.pubDate.toISOString()}>{date(post.data.pubDate)}</time>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Layout>
+
+<style>
+  .hero { display: grid; gap: 28px; align-items: center; padding-top: 48px; padding-bottom: 72px; }
+  @media (min-width: 900px) {
+    .hero { grid-template-columns: 1.05fr 1fr; }
+    .hero-art { order: -1; margin-left: -24px; }
+  }
+  h1 { margin: 0; max-width: 16ch; font-size: clamp(2.2rem, 5vw, 3.3rem); line-height: 1.08; letter-spacing: -0.035em; }
+  h1 em { font-style: normal; color: var(--accent); }
+  .lead { max-width: 52ch; margin: 20px 0 30px; color: var(--muted); font-size: 1.12rem; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero-art img {
+    display: block; width: 100%;
+    -webkit-mask-image: radial-gradient(ellipse closest-side at 50% 50%, #000 55%, transparent 100%);
+    mask-image: radial-gradient(ellipse closest-side at 50% 50%, #000 55%, transparent 100%);
+  }
+
+  h2 { margin: 0 0 20px; font-size: 1.6rem; font-weight: 600; letter-spacing: -0.02em; }
+  .posts { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .post {
+    display: flex; flex-direction: column; gap: 6px; padding: 22px 24px; border-radius: 14px;
+    border: 1px solid var(--border); background: var(--surface); color: var(--text); text-decoration: none;
+    transition: border-color 0.2s;
+  }
+  .post:hover { border-color: var(--border-strong); }
+  .post-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .post-title { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.015em; }
+  .post:hover .post-title { color: var(--accent); }
+  .post-desc { color: var(--muted); }
+  time { color: var(--muted); font-family: var(--mono); font-size: 0.8rem; }
+  .badge {
+    padding: 2px 8px; border: 1px solid var(--border-strong); border-radius: 999px;
+    color: var(--muted); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+</style>

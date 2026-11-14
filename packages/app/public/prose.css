@@ -1,0 +1,250 @@
+/*
+ * Sapphire Blog CMS — reading theme for posts.
+ *
+ * Usage: wrap the post text in <article class="sapphire-prose">…</article>.
+ * Works even with Tailwind's reset (preflight), which strips headings, lists and tables.
+ * Everything is inside :where(), so any site rule wins without needing !important.
+ *
+ * To match your site, override the variables:
+ *   .sapphire-prose { --sp-accent: #b5651d; --sp-font: Georgia, serif; }
+ * Colors derive from the text color (currentColor), so dark mode works on its own.
+ */
+
+:where(.sapphire-prose) {
+  --sp-font: inherit;
+  --sp-heading-font: inherit;
+  --sp-mono-font: ui-monospace, 'Cascadia Code', 'SFMono-Regular', Menlo, Consolas, monospace;
+  --sp-size: 1.0625rem;
+  --sp-leading: 1.75;
+  --sp-measure: 70ch;
+  --sp-accent: #1f4fe0;
+  --sp-muted: color-mix(in srgb, currentColor 68%, transparent);
+  --sp-border: color-mix(in srgb, currentColor 16%, transparent);
+  --sp-soft: color-mix(in srgb, currentColor 6%, transparent);
+  --sp-radius: 8px;
+
+  max-width: var(--sp-measure);
+  font-family: var(--sp-font);
+  font-size: var(--sp-size);
+  line-height: var(--sp-leading);
+  overflow-wrap: break-word;
+}
+
+:where(.sapphire-prose) > :first-child {
+  margin-top: 0;
+}
+
+:where(.sapphire-prose) > :last-child {
+  margin-bottom: 0;
+}
+
+:where(.sapphire-prose) :where(p, ul, ol, blockquote, pre, table, figure) {
+  margin: 1.1em 0;
+}
+
+/* Headings */
+
+:where(.sapphire-prose) :where(h1, h2, h3, h4, h5, h6) {
+  margin: 1.8em 0 0.6em;
+  font-family: var(--sp-heading-font);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+:where(.sapphire-prose) h1 {
+  font-size: 2.1em;
+}
+
+:where(.sapphire-prose) h2 {
+  font-size: 1.55em;
+}
+
+:where(.sapphire-prose) h3 {
+  font-size: 1.25em;
+}
+
+:where(.sapphire-prose) :where(h4, h5, h6) {
+  font-size: 1.05em;
+}
+
+:where(.sapphire-prose) :where(h1, h2, h3, h4, h5, h6) + * {
+  margin-top: 0;
+}
+
+/* Text */
+
+:where(.sapphire-prose) a {
+  color: var(--sp-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+:where(.sapphire-prose) a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:where(.sapphire-prose) :where(strong, b) {
+  font-weight: 700;
+}
+
+:where(.sapphire-prose) :where(em, i) {
+  font-style: italic;
+}
+
+:where(.sapphire-prose) u {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+:where(.sapphire-prose) :where(s, del) {
+  text-decoration: line-through;
+}
+
+/* Highlight: the color comes from the editor (style="background-color: …"). */
+:where(.sapphire-prose) mark {
+  padding: 0.05em 0.2em;
+  border-radius: 3px;
+  background-color: #fef08a;
+  color: inherit;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Lists */
+
+:where(.sapphire-prose) ul {
+  padding-left: 1.5em;
+  list-style: disc;
+}
+
+:where(.sapphire-prose) ol {
+  padding-left: 1.6em;
+  list-style: decimal;
+}
+
+:where(.sapphire-prose) :where(ul ul) {
+  list-style: circle;
+}
+
+:where(.sapphire-prose) li {
+  margin: 0.35em 0;
+  padding-left: 0.25em;
+}
+
+:where(.sapphire-prose) li > :where(p) {
+  margin: 0.35em 0;
+}
+
+:where(.sapphire-prose) li > :where(ul, ol) {
+  margin: 0.35em 0;
+}
+
+:where(.sapphire-prose) li::marker {
+  color: var(--sp-muted);
+}
+
+/* Quote */
+
+:where(.sapphire-prose) blockquote {
+  padding: 0.2em 0 0.2em 1.1em;
+  border-left: 3px solid var(--sp-accent);
+  color: var(--sp-muted);
+  font-style: italic;
+}
+
+/* Images and videos */
+
+:where(.sapphire-prose) img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.6em auto;
+  border-radius: var(--sp-radius);
+}
+
+:where(.sapphire-prose) figure img {
+  margin-bottom: 0.5em;
+}
+
+:where(.sapphire-prose) figcaption {
+  color: var(--sp-muted);
+  font-size: 0.875em;
+  text-align: center;
+}
+
+:where(.sapphire-prose) :where(iframe, video) {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  margin: 1.6em auto;
+  border: 0;
+  border-radius: var(--sp-radius);
+}
+
+/* Code */
+
+:where(.sapphire-prose) code {
+  padding: 0.15em 0.35em;
+  border-radius: 5px;
+  background: var(--sp-soft);
+  font-family: var(--sp-mono-font);
+  font-size: 0.875em;
+}
+
+:where(.sapphire-prose) pre {
+  padding: 1em 1.2em;
+  overflow-x: auto;
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius);
+  background: var(--sp-soft);
+  font-size: 0.875em;
+  line-height: 1.6;
+}
+
+:where(.sapphire-prose) pre code {
+  padding: 0;
+  background: none;
+  font-size: inherit;
+}
+
+/* Divider */
+
+:where(.sapphire-prose) hr {
+  height: 0;
+  margin: 2.5em 0;
+  border: 0;
+  border-top: 1px solid var(--sp-border);
+}
+
+/* Tables: scroll horizontally on phones instead of overflowing the page. */
+
+:where(.sapphire-prose) table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+
+:where(.sapphire-prose) :where(th, td) {
+  padding: 0.55em 0.9em;
+  border: 1px solid var(--sp-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+:where(.sapphire-prose) th {
+  background: var(--sp-soft);
+  font-weight: 600;
+}
+
+/* Editor protected block (HTML it does not edit): shown as written. */
+:where(.sapphire-prose) :where(div, section, aside) {
+  max-width: 100%;
+}
