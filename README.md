@@ -193,7 +193,7 @@ pnpm typecheck
 pnpm build
 ```
 
-The panel's themes (dark, light and kawaii pink) come from [`@sapphirelabs/ui`](https://github.com/sapphire-labs-dev/sapphire-ui), shared with the Sapphire Labs sites. It is a build-time dependency only (bundled into `dist/`). Until it is published on npm, clone it next to this repository (`../sapphire-ui`) before `pnpm install`.
+The panel's themes (dark, light and kawaii pink) come from [`@sapphirelabs/ui`](https://github.com/sapphire-labs-dev/sapphire-ui), shared with the Sapphire Labs sites. It is a build-time dependency only (bundled into `dist/`), so sites using the CMS never install it.
 
 ## Roadmap
 

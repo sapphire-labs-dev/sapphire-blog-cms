@@ -48,8 +48,8 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0
       '@sapphirelabs/ui':
-        specifier: file:../../../sapphire-ui
-        version: file:../sapphire-ui
+        specifier: ^0.1.0
+        version: 0.1.0
       '@tiptap/core':
         specifier: ^3.33.1
         version: 3.33.1(@tiptap/pm@3.33.1)
@@ -958,8 +958,8 @@ packages:
   '@rolldown/pluginutils@1.1.0':
     resolution: {integrity: sha512-K+NU2HDCEem4sClgHH4ZZXwdJeNFkJo+hRk479DIwdIviAPN2hFJH1KHHwg8CxHQXvi0M5XY4deTXINfIiSG6w==}
 
-  '@sapphirelabs/ui@file:../sapphire-ui':
-    resolution: {directory: ../sapphire-ui, type: directory}
+  '@sapphirelabs/ui@0.1.0':
+    resolution: {integrity: sha512-X1fVwJFbh+3evkfztuaoJGpwMT4SE3D8ASSxdj60H1oVDVsp1C1B9fwh8Ny4baTz8Eq03ZRVKs8muMVKl85tOw==}
     engines: {node: '>=22.23.4'}
     peerDependencies:
       astro: ^7.4.0
@@ -3180,7 +3180,7 @@ snapshots:
 
   '@rolldown/pluginutils@1.1.0': {}
 
-  '@sapphirelabs/ui@file:../sapphire-ui':
+  '@sapphirelabs/ui@0.1.0':
     dependencies:
       '@fontsource/inter': 5.3.0
       '@fontsource/jetbrains-mono': 5.3.0
